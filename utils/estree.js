@@ -3,11 +3,11 @@ const esprima = require('esprima');
 
 module.exports = {
 
-  validateCode(code, whitelist, blacklist) {
-    return this.parseTree(code, whitelist, blacklist);
+  validateCode(code, whitelist, blacklist, structureData) {
+    return this.parseTree(code, whitelist, blacklist, structureData);
   },
 
-  parseTree(code, whitelist, blacklist) {
+  parseTree(code, whitelist, blacklist, structureData) {
     let ast;
 
     try {
@@ -54,6 +54,12 @@ module.exports = {
       success: true,
     };
 
+    checkStructure(preorder, postorder, structureData);
+
     return results;
   },
+
+  checkStructure(preorder, postorder, structureData) {
+
+  }
 };

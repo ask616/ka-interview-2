@@ -3,6 +3,7 @@ const nodes = estreeNodes.ids;
 
 module.exports = {
   supportedNodes: [
+    nodes.Program,
     nodes.ReturnStatement,
     nodes.BreakStatement,
     nodes.ContinueStatement,

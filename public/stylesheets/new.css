@@ -42,3 +42,14 @@
   width: 100%;
   overflow-y: scroll;
 }
+
+#tree {
+  height: 400px;
+  width: 100%;
+}
+
+.tree-buttons {
+  height: 400px;
+  width: 100%;
+  overflow-y: scroll;
+}

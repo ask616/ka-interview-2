@@ -5,7 +5,7 @@ const estree = require('./estree');
 
 module.exports = {
   checkNewProblemAttributes(newProblem, res) {
-    if (!newProblem.problem || !newProblem.problem.length) {
+    if (!newProblem.display || !newProblem.display.length) {
       this.sendError(res, 400, 'Missing problem statement');
       return false;
     } else if (utils.hasElementsInCommon(newProblem.blacklist, newProblem.whitelist)) {
@@ -29,6 +29,7 @@ module.exports = {
   },
 
   saveProblem(newProblem, res) {
+    this.massageStructureData(newProblem);
     firebase.appendToList('problems', newProblem)
       .then((success) => {
         this.sendSuccess(res, 200, success);
@@ -47,8 +48,9 @@ module.exports = {
 
         const whitelist = problemData.whitelist || [];
         const blacklist = problemData.blacklist || [];
+        const structureData = problemData.structureData || {};
 
-        const results = estree.validateCode(code, whitelist, blacklist);
+        const results = estree.validateCode(code, whitelist, blacklist, structureData);
         const { whitelistViolations, blacklistViolations, success } = results;
 
         this.sendSuccess(res, 200, results.status,
@@ -63,8 +65,19 @@ module.exports = {
         res.render('index', { problem });
       })
       .catch((error) => {
-        res.sendError(res, 400, 'Failed to retrieve from server');
+        res.sendError(res, 400, 'Failed to retrieve from DB');
       });
+  },
+
+  massageStructureData(newProblem) {
+    if (!newProblem.structureData) {
+      return newProblem;
+    }
+
+    const newStructureData = utils.recursivePick(newProblem.structureData[0], 'type');
+    console.log(newStructureData);
+    newProblem.structureData = newStructureData;
+    return newProblem;
   },
 
   getSupportedNodes: () => supportedNodes.getSupportedNodesDisplay(),

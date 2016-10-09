@@ -1,5 +1,6 @@
 $(document).ready(() => {
   const editor = initializeEditor();
+  initializeTree();
 
   $(':checkbox').change((e) => {
     const $target = $(e.target);
@@ -21,10 +22,21 @@ $(document).ready(() => {
     const whitelist = $('*[data-type="whitelist"]:checked').map(getId).toArray();
     const blacklist = $('*[data-type="blacklist"]:checked').map(getId).toArray();
 
+    const treeOptions = {
+      no_state: true,
+      no_id: true,
+      no_data: true,
+      no_li_attr: true,
+      no_a_attr: true,
+    };
+
+    const structureData = getTreeInstance().get_json(undefined, treeOptions);
+
     const data = {
       display: problemText,
       whitelist,
       blacklist,
+      structureData,
     };
 
     submitProblem(data, () => {
@@ -34,6 +46,11 @@ $(document).ready(() => {
     });
   });
 
+  $('.tree-btn').click((e) => {
+    $target = $(e.target);
+    addChildNode($target.text().trim(), $target.data('id'));
+  });
+
   function initializeEditor() {
     return new SimpleMDE({
       element: $('#problem-input')[0],
@@ -41,6 +58,141 @@ $(document).ready(() => {
       toolbar: ['bold', 'italic', 'heading', '|', 'unordered-list', 'ordered-list',
                 '|', 'code', 'link', 'image', '|', 'preview', 'guide'],
     });
+  }
+
+  function initializeTree() {
+    const tree = $('#tree').jstree({
+      core: {
+        data: [{
+          text: 'Program',
+          type: 'Program',
+          state: { opened: true, selected: true },
+          check_callback: true,
+          children: [
+            {
+              text: 'Function declaration',
+              type: 'FunctionDeclaration',
+              children: [
+                {
+                  text: 'For loop',
+                  type: 'ForStatement',
+                  children: [
+                    {
+                      text: 'If statement',
+                      type: 'IfStatement',
+                    },
+                  ],
+                },
+                {
+                  text: 'Return statement',
+                  type: 'ReturnStatement',
+                },
+              ],
+            },
+            {
+              text: 'Call expression',
+              type: 'CallExpression',
+            },
+          ],
+        }],
+      },
+      types: {
+        default: {
+          icon: 'fa fa-code',
+          valid_children: ['default', '#'],
+        },
+        Program: {
+          icon: 'fa fa-code',
+          valid_children: ['default', 'Program', '#'],
+        },
+        ReturnStatement: {
+          icon: 'fa fa-code',
+        },
+        BreakStatement: {
+          icon: 'fa fa-code',
+        },
+        ContinueStatement: {
+          icon: 'fa fa-code',
+        },
+        IfStatement: {
+          icon: 'fa fa-code',
+        },
+        SwitchStatement: {
+          icon: 'fa fa-code',
+        },
+        SwitchCase: {
+          icon: 'fa fa-code',
+        },
+        WhileStatement: {
+          icon: 'fa fa-code',
+        },
+        DoWhileStatement: {
+          icon: 'fa fa-code',
+        },
+        ForStatement: {
+          icon: 'fa fa-code',
+        },
+        ForInStatement: {
+          icon: 'fa fa-code',
+        },
+        ThrowStatement: {
+          icon: 'fa fa-code',
+        },
+        TryStatement: {
+          icon: 'fa fa-code',
+        },
+        CatchClause: {
+          icon: 'fa fa-code',
+        },
+        FunctionDeclaration: {
+          icon: 'fa fa-code',
+        },
+        VariableDeclaration: {
+          icon: 'fa fa-code',
+        },
+        BinaryExpression: {
+          icon: 'fa fa-code',
+        },
+        UpdateExpression: {
+          icon: 'fa fa-code',
+        },
+        AssignmentExpression: {
+          icon: 'fa fa-code',
+        },
+        LogicalExpression: {
+          icon: 'fa fa-code',
+        },
+        ConditionalExpression: {
+          icon: 'fa fa-code',
+        },
+        CallExpression: {
+          icon: 'fa fa-code',
+        },
+        NewExpression: {
+          icon: 'fa fa-code',
+        },
+        ArrowFunctionExpression: {
+          icon: 'fa fa-code',
+        },
+        YieldExpression: {
+          icon: 'fa fa-code',
+        },
+        ClassDeclaration: {
+          icon: 'fa fa-code',
+        },
+        MethodDefinition: {
+          icon: 'fa fa-code',
+        },
+        ImportDeclaration: {
+          icon: 'fa fa-code',
+        },
+      },
+      plugins: ['types'],
+    });
+  }
+
+  function getTreeInstance() {
+    return $('#tree').jstree(true);
   }
 
   function submitProblem(data, onSuccess, onError) {
@@ -53,5 +205,18 @@ $(document).ready(() => {
       success: onSuccess,
       error: onError,
     });
+  }
+
+  function addChildNode(name, type) {
+    const jstree = getTreeInstance();
+    const currSelected = jstree.get_selected[0];
+
+    const data = {
+      text: name,
+      type,
+    };
+
+    const newNode = jstree.create_node(currSelected, data);
+    return newNode;
   }
 });

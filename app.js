@@ -32,6 +32,7 @@ app.use('/mdl', express.static(path.join(__dirname, '/node_modules/material-desi
 app.use('/jquery', express.static(path.join(__dirname, '/node_modules/jquery/dist/')));
 app.use('/simplemde', express.static(path.join(__dirname, '/node_modules/simplemde/dist/')));
 app.use('/ace', express.static(path.join(__dirname, '/node_modules/ace-builds/src-min/')));
+app.use('/jstree', express.static(path.join(__dirname, '/node_modules/jstree/dist/')));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

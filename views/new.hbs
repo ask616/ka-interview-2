@@ -2,13 +2,11 @@
 <html>
 
 <head>
-  <title>APCS Final Review</title>
-  <link type="text/css" rel="stylesheet" href="mdl/material.min.css" media="screen"/>
-  <link type="text/css" rel="stylesheet" href="simplemde/simplemde.min.css">
-  <link type="text/css" rel="stylesheet" href="stylesheets/new.css">
-  <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/themes/default/style.min.css">
-
+  <title>Cheeseboard</title>
+  <link type="text/css" rel="stylesheet" href="/mdl/material.min.css" media="screen"/>
+  <link type="text/css" rel="stylesheet" href="/simplemde/simplemde.min.css">
+  <link type="text/css" rel="stylesheet" href="/jstree/themes/default/style.min.css">
+  <link type="text/css" rel="stylesheet" href="/stylesheets/new.css">
 </head>
 
 <body>
@@ -73,6 +71,25 @@
                       </ul>
                     </div>
                 </div>
+
+                <div class="mdl-cell mdl-cell--6-col-desktop">
+                    <div id="tree"></div>
+                </div>
+
+                <div class="mdl-cell mdl-cell--6-col-desktop">
+                  <ul class="tree-buttons">
+                    {{#each whitelistOptions}}
+                      <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                          <button class="tree-btn mdl-button mdl-js-button mdl-button--raised mdl-button--accent" data-id="{{this.id}}">
+                            {{this.display}}
+                          </button>
+                        </span>
+                        </span>
+                      </li>
+                    {{/each}}
+                  </ul>
+                </div>
               </div>
             </div>
             <div class="mdl-layout-spacer"></div>
@@ -94,9 +111,9 @@
 
   <script type="text/javascript" src="jquery/jquery.min.js"></script>
   <script type="text/javascript" src="mdl/material.min.js"></script>
-  <script type="text/javascript" src="/javascripts/new.js"></script>
   <script type="text/javascript" src="simplemde/simplemde.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/jstree.min.js"></script>
+  <script type="text/javascript" src="/jstree/jstree.js"></script>
+  <script type="text/javascript" src="/javascripts/new.js"></script>
 
 </body>
 
