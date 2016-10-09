@@ -1,5 +1,6 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const routerUtils = require('../utils/router-utils');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -7,7 +8,13 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/new', (req, res, next) => {
-  res.render('new');
+  res.render('new', { whitelistOptions: [{ name: 'Return Statement', id: 'ReturnStatement' }, { name: 'Break Statement', id: 'BreakStatement' }] });
+});
+
+router.post('/new', (req, res, next) => {
+  if (!routerUtils.checkNewProblemAttributes(req.body, res)) {
+    routerUtils.saveProblem(req.body, res);
+  }
 });
 
 module.exports = router;

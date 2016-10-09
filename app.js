@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 
 const routes = require('./routes/index');
 
+const firebase = require('./utils/firebase');
+
 const app = express();
 
 // view engine setup
@@ -21,8 +23,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+firebase.initialize();
+
 app.use('/', routes);
+
+// Frontend JavaScript libraries
 app.use('/mdl', express.static(path.join(__dirname, '/node_modules/material-design-lite/')));
+app.use('/jquery', express.static(path.join(__dirname, '/node_modules/jquery/dist/')));
+app.use('/simplemde', express.static(path.join(__dirname, '/node_modules/simplemde/dist/')));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

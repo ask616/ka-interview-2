@@ -28,3 +28,11 @@
     position: relative;
     left: -10px!important;
 }
+
+.demo-list-control {
+  width: 300px;
+}
+
+.demo-list-radio {
+  display: inline;
+}

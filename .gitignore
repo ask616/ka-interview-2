@@ -1,3 +1,7 @@
+# Secrets
+utils/secrets.js
+utils/service-credentials.json
+
 # Logs
 logs
 *.log
