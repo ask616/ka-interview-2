@@ -18,4 +18,23 @@ module.exports = {
     const ref = firebase.database().ref(`/${path}`);
     return ref.once('value');
   },
+
+  getFirst(path) {
+    const ref = firebase.database().ref(`/${path}`);
+    return ref.limitToFirst(1).once('value');
+  },
+
+  getFirstChild(snapshot) {
+    const childData = {};
+
+    snapshot.forEach((child) => {
+      childData.data = child.val();
+      childData.id = child.key;
+      return true;
+    });
+  },
+
+  getValue(snapshot) {
+    return snapshot.val();
+  },
 };

@@ -48,12 +48,12 @@
     cursor: pointer;
 }
 
-.edit-problems-btn{
+.edit-problems-btn {
     margin-top: 30px;
     margin-left: 8px;
 }
 
-.mdl-menu__item{
+.mdl-menu__item {
     height:36px!important;
     line-height: 36px!important;
 }
@@ -67,10 +67,18 @@ pre {
 }
 
 
-.problem-text{
+.problem-text {
     white-space: pre-wrap;
     white-space: -moz-pre-wrap;
     white-space: -pre-wrap;
     white-space: -o-pre-wrap;
     word-wrap: break-word;
+}
+
+#editor {
+  position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
 }

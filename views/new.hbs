@@ -37,37 +37,41 @@
 
                 <div class="mdl-cell mdl-cell--6-col-desktop">
                   <h6 class="mdl-color-text--blue-grey-700">Whitelisted components:</h6>
-                  <ul class="demo-list-control mdl-list">
-                    {{#each whitelistOptions}}
-                      <li class="mdl-list__item">
-                        <span class="mdl-list__item-primary-content">
-                          {{this.name}}
-                        </span>
-                        <span class="mdl-list__item-secondary-action">
-                          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="whitelist-{{this.id}}">
-                            <input type="checkbox" data-type="whitelist" data-id="{{this.id}}"  id="whitelist-{{this.id}}" class="mdl-checkbox__input" />
-                          </label>
-                        </span>
-                      </li>
-                    {{/each}}
-                  </ul>
+                  <div class="component-list">
+                    <ul class="demo-list-control mdl-list" id="whitelist">
+                      {{#each whitelistOptions}}
+                        <li class="mdl-list__item">
+                          <span class="mdl-list__item-primary-content">
+                            {{this.display}}
+                          </span>
+                          <span class="mdl-list__item-secondary-action">
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" id="whitelist-{{this.id}}-component" for="whitelist-{{this.id}}-checkbox">
+                              <input type="checkbox" data-type="whitelist" data-id="{{this.id}}" id="whitelist-{{this.id}}-checkbox" class="mdl-checkbox__input component-checkbox" />
+                            </label>
+                          </span>
+                        </li>
+                      {{/each}}
+                    </ul>
+                  </div>
                 </div>
                 <div class="mdl-cell mdl-cell--6-col-desktop">
                   <h6 class="mdl-color-text--blue-grey-700">Blacklisted components:</h6>
-                  <ul class="demo-list-control mdl-list">
-                    {{#each whitelistOptions}}
-                      <li class="mdl-list__item">
-                        <span class="mdl-list__item-primary-content">
-                          {{this.name}}
-                        </span>
-                        <span class="mdl-list__item-secondary-action">
-                          <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="blacklist-{{this.id}}">
-                            <input type="checkbox" data-type="blacklist" data-id="{{this.id}}" id="blacklist-{{this.id}}" class="mdl-checkbox__input" />
-                          </label>
-                        </span>
-                      </li>
-                    {{/each}}
-                  </ul>
+                    <div class="component-list">
+                      <ul class="demo-list-control mdl-list" id="blacklist">
+                        {{#each whitelistOptions}}
+                          <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content">
+                              {{this.display}}
+                            </span>
+                            <span class="mdl-list__item-secondary-action">
+                              <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" id="blacklist-{{this.id}}-component" for="blacklist-{{this.id}}-checkbox">
+                                <input type="checkbox" data-type="blacklist" data-id="{{this.id}}" id="blacklist-{{this.id}}-checkbox" class="mdl-checkbox__input" />
+                              </label>
+                            </span>
+                          </li>
+                        {{/each}}
+                      </ul>
+                    </div>
                 </div>
               </div>
             </div>
@@ -79,7 +83,7 @@
           <div class="mdl-layout-spacer"></div>
           <div class="form-controls-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
             <div class="mdl-card__actions mdl-card--border mdl-color--teal-400">
-              <a href="#" class="submit-problems-btn mdl-button mdl-js-button mdl-js-ripple-effect">Submit</a>
+              <a href="#" class="submit-problem-btn mdl-button mdl-js-button mdl-js-ripple-effect">Submit</a>
             </div>
           </div>
           <div class="mdl-layout-spacer"></div>

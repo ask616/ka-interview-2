@@ -7,7 +7,7 @@ module.exports = {
   parseTree(code, whitelist, blacklist) {
     const ast = esprima.parse(code);
     const whitelistObj = utils.listToObj(whitelist, true);
-    const blacklistObj = utils.listToObj(whitelist, true);
+    const blacklistObj = utils.listToObj(blacklist, true);
     const blacklistViolations = [];
 
     estraverse.traverse(ast, {
