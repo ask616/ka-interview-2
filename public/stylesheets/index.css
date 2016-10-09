@@ -1,23 +1,23 @@
 .drawer-title{
-    padding-top: 60px;
+  padding-top: 60px;
 }
 
 .card-head{
-    padding-top: 70px;
+  padding-top: 70px;
 }
 
 .section-title{
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link{
-    color: #CFD8DC;
+  color: #CFD8DC;
 }
 
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover{
-    background-color: #26A69A;
-    color: #37474F;
-    cursor: pointer;
+  background-color: #26A69A;
+  color: #37474F;
+  cursor: pointer;
 }
 
 .mdl-card__actions a {
@@ -26,59 +26,69 @@
 }
 
 .solution-text{
-    display: none;
+  display: none;
 }
 
 .set-title{
-    font-size: 36px!important;
-    margin-left: 5px;
-    margin-top: 40px;
-    margin-bottom: 15px;
-    font-weight: 300;
-    color: black;
+  font-size: 36px!important;
+  margin-left: 5px;
+  margin-top: 40px;
+  margin-bottom: 15px;
+  font-weight: 300;
+  color: black;
 }
 
 #set-subtitle{
-    font-size: 24px!important;
-    font-weight: 300;
-    color: grey;
+  font-size: 24px!important;
+  font-weight: 300;
+  color: grey;
 }
 
 .section-title:hover{
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .edit-problems-btn {
-    margin-top: 30px;
-    margin-left: 8px;
+  margin-top: 30px;
+  margin-left: 8px;
 }
 
 .mdl-menu__item {
-    height:36px!important;
-    line-height: 36px!important;
+  height:36px!important;
+  line-height: 36px!important;
 }
 
 pre {
-    white-space: pre-wrap;
-    white-space: -moz-pre-wrap;
-    white-space: -pre-wrap;
-    white-space: -o-pre-wrap;
-    word-wrap: break-word;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
 }
 
 
 .problem-text {
-    white-space: pre-wrap;
-    white-space: -moz-pre-wrap;
-    white-space: -pre-wrap;
-    white-space: -o-pre-wrap;
-    word-wrap: break-word;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
 }
 
 #editor {
   position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.errors-card {
+  padding: 5px;
+  padding-left: 10px;
+  min-height: 0!important;
+}
+
+#errors-status {
+  cursor: pointer;
 }

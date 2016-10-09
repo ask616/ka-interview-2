@@ -1,6 +1,7 @@
 const firebase = require('./firebase');
 const supportedNodes = require('./constants/supported-nodes');
 const utils = require('./utils');
+const estree = require('./estree');
 
 module.exports = {
   checkNewProblemAttributes(newProblem, res) {
@@ -19,6 +20,9 @@ module.exports = {
     if (!toValidate.code || !toValidate.code.length) {
       this.sendError(res, 400, 'Missing code to validate');
       return false;
+    } else if (!toValidate.id || !toValidate.id.length) {
+      this.sendError(res, 400, 'Missing problem id');
+      return false;
     }
 
     return true;
@@ -36,10 +40,19 @@ module.exports = {
 
   // TODO: validate that child key exists
   validateCode(toValidate, res) {
-    const data = firebase.get(`problems/${toValidate.id}`)
+    firebase.get(`problems/${toValidate.id}`)
       .then((snapshot) => {
         const problemData = firebase.getValue(snapshot);
         const code = toValidate.code;
+
+        const whitelist = problemData.whitelist || [];
+        const blacklist = problemData.blacklist || [];
+
+        const results = estree.validateCode(code, whitelist, blacklist);
+        const { whitelistViolations, blacklistViolations, success } = results;
+
+        this.sendSuccess(res, 200, results.status,
+                         { whitelistViolations, blacklistViolations, success });
       });
   },
 
@@ -60,8 +73,10 @@ module.exports = {
     res.status(code || 500).json({ error: message });
   },
 
-  sendSuccess(res, code, message) {
-    res.status(code || 200).json({ success: message });
+  sendSuccess(res, code, message, data) {
+    data = data || {};
+    const replyData = Object.assign({ success: message }, data);
+    res.status(code || 200).json(replyData);
   },
 
   buildProblemObject(snapshot) {

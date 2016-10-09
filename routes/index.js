@@ -17,7 +17,7 @@ router.post('/new', (req, res, next) => {
   }
 });
 
-router.get('/validate', (req, res, next) => {
+router.post('/validate', (req, res, next) => {
   if (routerUtils.checkValidationAttributes(req.body, res)) {
     routerUtils.validateCode(req.body, res);
   }

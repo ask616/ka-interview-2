@@ -21,8 +21,24 @@ $(document).ready(() => {
     return editorInstance;
   }
 
-  function alertValidation() {
-    console.log('validated');
+  function updateErrors(response) {
+    const { whitelistViolations, blacklistViolations } = response;
+    const numErrors = whitelistViolations.length + blacklistViolations.length;
+    const successBg = 'mdl-color--teal-400';
+    const errorBg = 'mdl-color--red-900';
+
+    if (response.success) {
+      if (numErrors == 1) {
+        $('#errors-status').text(`There is ${numErrors} issue. Click here for details.`);
+        $('.errors-card').removeClass(successBg).addClass(errorBg);
+      } else if (numErrors > 1) {
+        $('#errors-status').text(`There are ${numErrors} issues. Click here for details.`);
+        $('.errors-card').removeClass(successBg).addClass(errorBg);
+      } else {
+        $('#errors-status').text(`There are no issues!`);
+        $('.errors-card').removeClass(errorBg).addClass(successBg);
+      }
+    }
   }
 
   function validateCode() {
@@ -30,15 +46,15 @@ $(document).ready(() => {
       code: editor.getValue(),
       id: $('#editor-card').data('id'),
     };
-    console.log(data.id);
-    // $.ajax({
-    //   url: '/validate',
-    //   type: 'GET',
-    //   data: JSON.stringify({ code: editor.getValue() }),
-    //   contentType: 'application/json; charset=utf-8',
-    //   dataType: 'json',
-    //   success: alertValidation,
-    //   error: (error) => { alert(error); },
-    // });
+
+    $.ajax({
+      url: '/validate',
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      success: updateErrors,
+      error: (error) => { alert(error); },
+    });
   }
 });

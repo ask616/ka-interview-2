@@ -32,6 +32,8 @@ module.exports = {
       childData.id = child.key;
       return true;
     });
+
+    return childData;
   },
 
   getValue(snapshot) {
