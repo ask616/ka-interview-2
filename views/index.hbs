@@ -24,14 +24,32 @@
     </div>
     <main class="mdl-layout__content">
       <div class="page-content">
-
-        <div class="mdl-grid">
-          <p class="set-title" id="set-title">Set <span id="set-num">1</span><span id="set-subtitle"> by <span class="set-author">Eric Ferrante</span></span></p>
-        </div>
-
         <div id="problems">
+          {{#each problems}}
+            <div class="mdl-grid">
+              <div class="problem-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+                <div class="card-head mdl-card__title mdl-card--expand mdl-color--teal-300">
+                  <h2 class="mdl-card__title-text mdl-color-text--grey-50">Problem {{@index}}</h2>
+                </div>
+                <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                  <div class="problem-text">{{this.problem}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mdl-grid">
+              <div class="problem-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+                <div class="card-head mdl-card__title mdl-card--expand mdl-color--teal-300">
+                  <h2 class="mdl-card__title-text mdl-color-text--grey-50">Problem {{@index}}</h2>
+                </div>
+                <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                  <div class="problem-text">{{this.problem}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{/each}}
         </div>
-
       </div>
     </main>
   </div>

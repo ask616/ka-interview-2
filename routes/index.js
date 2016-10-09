@@ -4,7 +4,7 @@ const routerUtils = require('../utils/router-utils');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  res.render('index', { title: 'Express' });
+  routerUtils.getProblems(res);
 });
 
 router.get('/new', (req, res, next) => {
@@ -12,7 +12,7 @@ router.get('/new', (req, res, next) => {
 });
 
 router.post('/new', (req, res, next) => {
-  if (!routerUtils.checkNewProblemAttributes(req.body, res)) {
+  if (routerUtils.checkNewProblemAttributes(req.body, res)) {
     routerUtils.saveProblem(req.body, res);
   }
 });
