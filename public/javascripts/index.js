@@ -4,6 +4,11 @@ $(document).ready(() => {
   let callTimer;
   const delay = 3000;
 
+  /**
+   * Event handler for ACE editor interaction. We maintain a timeout that will
+   * make the API call 3 seconds after the user stops typing. If typing is resumed
+   * before that time, the timeout is stopped and replaced.
+   */
   editor.on('change', (e) => {
     if (callTimer) {
       clearTimeout(callTimer);
@@ -21,6 +26,9 @@ $(document).ready(() => {
     return editorInstance;
   }
 
+  /**
+   * Updates error bar after a validation API call
+   */
   function updateErrors(response) {
     const { whitelistViolations, blacklistViolations } = response;
     const numErrors = whitelistViolations.length + blacklistViolations.length;
@@ -41,6 +49,10 @@ $(document).ready(() => {
     }
   }
 
+  /**
+   * Gets code and problem ID and makes an AJAX request to our server for code verification
+   * @return {[type]} [description]
+   */
   function validateCode() {
     const data = {
       code: editor.getValue(),

@@ -1,3 +1,7 @@
+/**
+ * Enum data mapping to all ESTree node types and their display strings
+ * @type {Object}
+ */
 module.exports = {
   ids: {
     AssignmentExpression: 'AssignmentExpression',

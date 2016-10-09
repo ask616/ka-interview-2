@@ -1,6 +1,10 @@
 const estreeNodes = require('./estree-nodes');
 const nodes = estreeNodes.ids;
 
+/**
+ * ESTree node types supported by our app for verification
+ * @type {Object}
+ */
 module.exports = {
   supportedNodes: [
     nodes.Program,

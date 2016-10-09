@@ -2,6 +2,10 @@ $(document).ready(() => {
   const editor = initializeEditor();
   initializeTree();
 
+  /**
+   * Event handler for the whitelist/blacklist checkboxes. When an element is selected
+   * in one list, we don't want it to be in the other as well, so we disable it
+   */
   $(':checkbox').change((e) => {
     const $target = $(e.target);
     const isWhitelist = $target.data('type') === 'whitelist';
@@ -16,8 +20,17 @@ $(document).ready(() => {
     }
   });
 
+  /**
+   * Event handler for the problem submission form
+   */
   $('.submit-problem-btn').click(() => {
     const problemText = editor.value();
+
+    if (!problemText.length) {
+      alert('You must type your problem first!');
+      return;
+    }
+
     const getId = (index, elem) => $(elem).data('id');
     const whitelist = $('*[data-type="whitelist"]:checked').map(getId).toArray();
     const blacklist = $('*[data-type="blacklist"]:checked').map(getId).toArray();
@@ -30,6 +43,7 @@ $(document).ready(() => {
       no_a_attr: true,
     };
 
+    // Get data from JSTree instance
     const structureData = getTreeInstance().get_json(undefined, treeOptions);
 
     const data = {
@@ -40,9 +54,9 @@ $(document).ready(() => {
     };
 
     submitProblem(data, () => {
-      alert('Succeeded!');
+      $(location).attr('href', '/');
     }, (error) => {
-      alert(error);
+      alert(JSON.stringify(error));
     });
   });
 
@@ -60,6 +74,11 @@ $(document).ready(() => {
     });
   }
 
+  /**
+   * Initialized the JSTree. I spent over an hour trying to programmatically allow users to modify
+   * the structure of the tree, but kept experiencing some issue. As a result, I've hardcoded upon
+   * the initialization a basic code structure to be enforced.
+   */
   function initializeTree() {
     const tree = $('#tree').jstree({
       core: {

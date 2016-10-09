@@ -3,6 +3,10 @@ const supportedNodes = require('./constants/supported-nodes');
 const utils = require('./utils');
 const estree = require('./estree');
 
+/**
+ * Runs input validation and handles responses for the router
+ * @type {Object}
+ */
 module.exports = {
   checkNewProblemAttributes(newProblem, res) {
     if (!newProblem.display || !newProblem.display.length) {
@@ -29,6 +33,7 @@ module.exports = {
   },
 
   saveProblem(newProblem, res) {
+    // Get rid of extra data from the jsTree
     this.massageStructureData(newProblem);
     firebase.appendToList('problems', newProblem)
       .then((success) => {
@@ -49,8 +54,9 @@ module.exports = {
         const whitelist = problemData.whitelist || [];
         const blacklist = problemData.blacklist || [];
         const structureData = problemData.structureData || {};
+        const typeList = problemData.typeList || {};
 
-        const results = estree.validateCode(code, whitelist, blacklist, structureData);
+        const results = estree.validateCode(code, whitelist, blacklist, structureData, typeList);
         const { whitelistViolations, blacklistViolations, success } = results;
 
         this.sendSuccess(res, 200, results.status,
@@ -58,6 +64,10 @@ module.exports = {
       });
   },
 
+  /**
+   * Returns the first problem in the db for display
+   * @param  {Object} res Express response object
+   */
   getProblems(res) {
     firebase.getFirst('problems')
       .then((snapshot) => {
@@ -69,14 +79,21 @@ module.exports = {
       });
   },
 
+  /**
+   * Gets rid of excess data from the jsTree and keeps only the essential program
+   * structure. Additionally stores a list of all elements expected in the program
+   * structure. Note that the function is destructive!
+   * @param  {Object} newProblem New problem submission object
+   * @return {Object}            Modified problem object
+   */
   massageStructureData(newProblem) {
     if (!newProblem.structureData) {
       return newProblem;
     }
 
     const newStructureData = utils.recursivePick(newProblem.structureData[0], 'type');
-    console.log(newStructureData);
-    newProblem.structureData = newStructureData;
+    newProblem.structureData = newStructureData.newObject;
+    newProblem.typeList = newStructureData.valueList;
     return newProblem;
   },
 
