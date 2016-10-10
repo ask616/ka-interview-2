@@ -87,7 +87,3 @@ pre {
   padding-left: 10px;
   min-height: 0!important;
 }
-
-#errors-status {
-  cursor: pointer;
-}

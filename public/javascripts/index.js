@@ -37,17 +37,42 @@ $(document).ready(() => {
     const errorBg = 'mdl-color--red-900';
 
     if (response.success) {
-      if (numErrors === 1) {
-        $('#errors-status').text(`There is ${numErrors} issue. Click here for details.`);
-        $('.errors-card').removeClass(successBg).addClass(errorBg);
-      } else if (numErrors > 1) {
-        $('#errors-status').text(`There are ${numErrors} issues. Click here for details.`);
+      if (numErrors > 0) {
+        $('#errors-status').html(buildErrorHtml(whitelistViolations,
+          blacklistViolations, structureViolation, numErrors));
         $('.errors-card').removeClass(successBg).addClass(errorBg);
       } else {
-        $('#errors-status').text(`There are no issues!`);
+        $('#errors-status').html('There are no issues!');
         $('.errors-card').removeClass(errorBg).addClass(successBg);
       }
     }
+  }
+
+  function buildErrorHtml(whitelistViolations, blacklistViolations, structureViolation, numErrors) {
+    let errorHtml = '';
+
+    if (numErrors === 1) {
+      errorHtml += `There is ${numErrors} issue.`;
+    } else if (numErrors > 1) {
+      errorHtml += `There are ${numErrors} issues.`;
+    }
+
+    errorHtml += '<ul>';
+
+    whitelistViolations.forEach((violation) => {
+      errorHtml += `<li>You are missing a ${violation.toLowerCase()}</li>`;
+    });
+
+    blacklistViolations.forEach((violation) => {
+      errorHtml += `<li>You cannot use a ${violation.toLowerCase()}</li>`;
+    });
+
+    if (structureViolation) {
+      errorHtml += '<li>The structure of your program is invalid</li>';
+    }
+
+    errorHtml += '</ul>';
+    return errorHtml;
   }
 
   /**

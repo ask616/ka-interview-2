@@ -1,5 +1,6 @@
 const firebase = require('./firebase');
 const supportedNodes = require('./constants/supported-nodes');
+const estreeNodes = require('./constants/estree-nodes');
 const utils = require('./utils');
 const estree = require('./estree');
 
@@ -58,9 +59,13 @@ module.exports = {
 
         const results = estree.validateCode(code, whitelist, blacklist, structureData, typeList);
         const { whitelistViolations, blacklistViolations, structureViolation, success } = results;
-
+        const whitelistDisplays = estreeNodes.getDisplayStrings(whitelistViolations);
+        const blacklistDisplays = estreeNodes.getDisplayStrings(blacklistViolations);
         this.sendSuccess(res, 200, results.status,
-                         { whitelistViolations, blacklistViolations, structureViolation, success });
+                         { whitelistViolations: whitelistDisplays,
+                          blacklistViolations: blacklistDisplays,
+                          structureViolation,
+                          success });
       });
   },
 

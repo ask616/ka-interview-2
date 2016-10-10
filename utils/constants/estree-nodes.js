@@ -142,4 +142,8 @@ module.exports = {
     WithStatement: 'With statement',
     YieldExpression: 'Yield expression',
   },
+
+  getDisplayStrings(elements) {
+    return elements.map(elem => this.display[elem]);
+  },
 };
