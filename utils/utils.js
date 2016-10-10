@@ -1,4 +1,5 @@
 const intersection = require('lodash/intersection');
+const fill = require('lodash/fill');
 
 /**
  * General utility functions throughout the app
@@ -33,5 +34,10 @@ module.exports = {
         this.recursivePick(child, key, valueList).newObject);
 
     return { newObject: newObj, valueList };
+  },
+
+  init2dArray(numRows, numCols) {
+    const newArray = new Array(numRows);
+    return fill(newArray, new Array(numCols));
   },
 };

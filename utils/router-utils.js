@@ -57,10 +57,10 @@ module.exports = {
         const typeList = problemData.typeList || {};
 
         const results = estree.validateCode(code, whitelist, blacklist, structureData, typeList);
-        const { whitelistViolations, blacklistViolations, success } = results;
+        const { whitelistViolations, blacklistViolations, structureViolation, success } = results;
 
         this.sendSuccess(res, 200, results.status,
-                         { whitelistViolations, blacklistViolations, success });
+                         { whitelistViolations, blacklistViolations, structureViolation, success });
       });
   },
 

@@ -30,13 +30,14 @@ $(document).ready(() => {
    * Updates error bar after a validation API call
    */
   function updateErrors(response) {
-    const { whitelistViolations, blacklistViolations } = response;
-    const numErrors = whitelistViolations.length + blacklistViolations.length;
+    const { whitelistViolations, blacklistViolations, structureViolation } = response;
+    const numErrors = whitelistViolations.length + blacklistViolations.length + (structureViolation
+      ? 1 : 0);
     const successBg = 'mdl-color--teal-400';
     const errorBg = 'mdl-color--red-900';
 
     if (response.success) {
-      if (numErrors == 1) {
+      if (numErrors === 1) {
         $('#errors-status').text(`There is ${numErrors} issue. Click here for details.`);
         $('.errors-card').removeClass(successBg).addClass(errorBg);
       } else if (numErrors > 1) {
